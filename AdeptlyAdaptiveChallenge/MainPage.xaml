@@ -1,0 +1,111 @@
+﻿<Page
+    x:Class="AdeptlyAdaptiveChallenge.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdeptlyAdaptiveChallenge"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:AdeptlyAdaptiveChallenge.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowerLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SearchBox.Visibilty" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                
+                <VisualState x:Name="WiderLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SearchBox.Visibilty" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <RelativePanel>
+            <Button Name="HamburgerButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE700;"
+                    FontSize="20"
+                    Width="45"
+                    Height="45"
+                    FontWeight="Bold"
+                    Click="HamburgerButton_Click"/>
+            <TextBlock Name="CategoryLabel"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Margin="10,0,0,0"
+                       RelativePanel.RightOf="HamburgerButton"
+                       FontSize="24"
+                       Text="Financial"/>
+            <AutoSuggestBox Name="SearchBox"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            QueryIcon="Find"
+                            Width="200"                            
+                            Margin="0,0,10,0"
+                            PlaceholderText="Search"/>
+        </RelativePanel>
+        <SplitView Name="MenuView" Grid.Row="1"
+                   OpenPaneLength="200"
+                   CompactPaneLength="45"
+                   DisplayMode="CompactOverlay">
+            <SplitView.Pane>
+                <ListView SelectionChanged="ListView_SelectionChanged">
+                    <ListViewItem Name="FinancialLV">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       Text="&#xEC5C;"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Financial"
+                                       FontSize="18"
+                                       Margin="20,0,0,0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="FoodLV">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       Text="&#xE11D;"
+                                       FontSize="20"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="Food"
+                                       FontSize="18"
+                                       Margin="20,0,0,0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <GridView ShowsScrollingPlaceholders="True"
+                          HorizontalAlignment="Stretch"
+                          Background="LightGray"
+                          ItemsSource="{x:Bind NewsItem}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="data:NewsItems">
+                            <local:NewsItemTemplate />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>                    
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>

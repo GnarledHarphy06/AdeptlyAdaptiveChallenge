@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="AdeptlyAdaptiveChallenge.NewsItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdeptlyAdaptiveChallenge"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <RelativePanel Name="NewsCard"
+                   Background="White"
+                   Height="275"
+                   Margin="10">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NewsCard.Height" Value="275"/>
+                        <Setter Target="Head.FontSize" Value="18" />
+                        <Setter Target="NewsCard.Width" Value="200"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NewsCard.Height" Value="400"/>
+                        <Setter Target="Head.FontSize" Value="26" />
+                        <Setter Target="NewsCard.Width" Value="400"/>
+                    </VisualState.Setters>
+                </VisualState>                
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Image Name="PlaceholderImage"
+               RelativePanel.AlignTopWithPanel="True" 
+               Stretch="Uniform"
+               Source="{x:Bind NewsItems.Image}"/>
+        <StackPanel RelativePanel.Below="PlaceholderImage"
+                    Margin="10">
+            <TextBlock Name="Head"
+                       Text="{x:Bind NewsItems.Headline}"                       
+                       FontSize="18"/>
+            <TextBlock Text="{x:Bind NewsItems.Subhead}"
+                       TextWrapping="Wrap"
+                       FontSize="16"/>
+        </StackPanel>
+        <TextBlock Text="{x:Bind NewsItems.DateLine}" Margin="10"
+                       RelativePanel.AlignBottomWithPanel="True"
+                       FontSize="12"/>
+
+    </RelativePanel>
+</UserControl>
