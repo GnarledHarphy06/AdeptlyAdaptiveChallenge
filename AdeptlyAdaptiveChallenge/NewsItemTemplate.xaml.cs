@@ -25,7 +25,7 @@ namespace AdeptlyAdaptiveChallenge
         public NewsItemTemplate()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => Bindings.Update();
+            this.DataContextChanged += (s, e) => Bindings.Update(); // Somthing is broken here. Help.
         }
     }
 }

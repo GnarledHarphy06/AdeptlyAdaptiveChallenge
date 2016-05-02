@@ -26,13 +26,11 @@ namespace AdeptlyAdaptiveChallenge
     {
         private ObservableCollection<NewsItems> NewsItem;
 
-        private void categorySelector(NewsItems.CategoryEnum selecetedCategory)
+        private static ObservableCollection<NewsItems> categorySelector(NewsItems.CategoryEnum selecetedCategory)
         {
-            NewsItem = new ObservableCollection<NewsItems>(NewsItemManager.GetNewsItems()
+            return new ObservableCollection<NewsItems>(NewsItemManager.GetNewsItems()
                 .Where(p => p.Category == selecetedCategory)
-                .ToList<NewsItems>());
-
-            Bindings.Update();
+                .ToList());
         }
 
         public MainPage()
@@ -50,14 +48,15 @@ namespace AdeptlyAdaptiveChallenge
         {
             if (FinancialLV.IsSelected)
             {
-                categorySelector(NewsItems.CategoryEnum.Financial);
+                NewsItem = categorySelector(NewsItems.CategoryEnum.Financial);
                 CategoryLabel.Text = "Financial";
             }
             else if (FoodLV.IsSelected)
             {
-                categorySelector(NewsItems.CategoryEnum.Food);
+                NewsItem = categorySelector(NewsItems.CategoryEnum.Food);
                 CategoryLabel.Text = "Food";
             }
+            // Bindings.Update(); // It works, but it's not the proper way.
         }
     }
 }

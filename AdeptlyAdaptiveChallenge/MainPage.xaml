@@ -95,8 +95,7 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <GridView ShowsScrollingPlaceholders="True"
-                          HorizontalAlignment="Stretch"
+                <GridView HorizontalAlignment="Stretch"
                           Background="LightGray"
                           ItemsSource="{x:Bind NewsItem}">
                     <GridView.ItemTemplate>
