@@ -26,15 +26,6 @@ namespace AdeptlyAdaptiveChallenge
     {
         private ObservableCollection<NewsItems> NewsItem;
 
-        private void categorySelector(NewsItems.CategoryEnum selecetedCategory)
-        {
-            NewsItem = new ObservableCollection<NewsItems>(NewsItemManager.GetNewsItems()
-                .Where(p => p.Category == selecetedCategory)
-                .ToList<NewsItems>());
-
-            Bindings.Update();
-        }
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -50,14 +41,19 @@ namespace AdeptlyAdaptiveChallenge
         {
             if (FinancialLV.IsSelected)
             {
-                categorySelector(NewsItems.CategoryEnum.Financial);
+                NewsItemManager.CategorySelector(NewsItems.CategoryEnum.Financial, NewsItem);
                 CategoryLabel.Text = "Financial";
             }
             else if (FoodLV.IsSelected)
             {
-                categorySelector(NewsItems.CategoryEnum.Food);
+                NewsItemManager.CategorySelector(NewsItems.CategoryEnum.Food, NewsItem);
                 CategoryLabel.Text = "Food";
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            FinancialLV.IsSelected = true;
         }
     }
 }
