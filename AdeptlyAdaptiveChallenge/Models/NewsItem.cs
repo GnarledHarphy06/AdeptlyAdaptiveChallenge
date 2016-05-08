@@ -21,6 +21,18 @@ namespace AdeptlyAdaptiveChallenge.Models
 
     public class NewsItemManager
     {
+        public static void CategorySelector
+            (NewsItems.CategoryEnum selectedCategory, ObservableCollection<NewsItems> newsItems)
+        {
+            newsItems.Clear();
+            
+            var _newsItems = NewsItemManager.GetNewsItems()
+                .Where(p => p.Category == selectedCategory)
+                .ToList();
+
+            _newsItems.ForEach(p => newsItems.Add(p));
+        }
+
         public static ObservableCollection<NewsItems> GetNewsItems()
         {
             var items = new ObservableCollection<NewsItems>();
